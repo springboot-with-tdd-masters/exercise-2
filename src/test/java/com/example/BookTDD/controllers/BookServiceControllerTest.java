@@ -49,7 +49,7 @@ public class BookServiceControllerTest {
     }
 
     @Test
-    @DisplayName("Given an error unknown error in save, response should give http status 200")
+    @DisplayName("Given an error unknown error in save, response should give http status 500")
     public void unknownError() throws Exception {
 
         when(bookService.save(any()))
