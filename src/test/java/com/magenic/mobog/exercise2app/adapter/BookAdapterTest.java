@@ -1,6 +1,7 @@
 package com.magenic.mobog.exercise2app.adapter;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -8,6 +9,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import com.magenic.mobog.exercise2app.entities.Book;
+import com.magenic.mobog.exercise2app.exceptions.InvalidBookRequestException;
 import com.magenic.mobog.exercise2app.requests.AddBookRequest;
 import com.magenic.mobog.exercise2app.responses.GetBookResponse;
 
@@ -52,5 +54,14 @@ class BookAdapterTest {
 		assertEquals(1L, actual.getId());
 		assertEquals("Paul Dano", actual.getAuthor());
 		assertEquals("There Will Be Riddler", actual.getTitle());
+	}
+	@Test
+	@DisplayName("should throw exception if author or title is empty")
+	void shouldThrowExceptionOnWhitespaces() {
+		// given
+		AddBookRequest request = new AddBookRequest();
+		assertThrows(InvalidBookRequestException.class, () -> {
+			bookAdapter.mapRequestToEntity(request);
+		});
 	}
 }
