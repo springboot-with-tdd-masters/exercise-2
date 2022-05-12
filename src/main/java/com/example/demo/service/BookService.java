@@ -2,9 +2,7 @@ package com.example.demo.service;
 
 import com.example.demo.model.Book;
 
-import java.util.Optional;
-
 public interface BookService {
-    void addBook(Book book);
-    Optional<Book> getBook(Long id);
+    public Book getBookById(Long id);
+    public Book addBook(Book book);
 }

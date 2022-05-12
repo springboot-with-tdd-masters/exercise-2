@@ -52,12 +52,13 @@ public class BookServiceTest {
         Optional<Book> optionalBook = Optional.of(book);
         when(bookRepository.findById(Mockito.anyLong())).thenReturn(optionalBook);
         //act
-        bookService.getBook(2L);
+        bookService.getBookById(1L);
         //assert
         verify(bookRepository)
-                .findById(2L);
+                .findById(1L);
         assertThat(book)
                 .extracting("id","author","title")
                 .containsExactly(1L,"Rey","The TDD");
     }
+
 }
