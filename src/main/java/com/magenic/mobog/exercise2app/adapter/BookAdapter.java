@@ -9,7 +9,7 @@ import com.magenic.mobog.exercise2app.responses.GetBookResponse;
 
 public class BookAdapter {
 
-	GetBookResponse mapBookToResponse(Book book) {
+	public GetBookResponse mapBookToResponse(Book book) {
 		GetBookResponse response = new GetBookResponse();
 		response.setId(book.getId());
 		response.setAuthor(book.getAuthor());
@@ -17,7 +17,7 @@ public class BookAdapter {
 		return response;
 	}
 
-	Book mapRequestToEntity(AddBookRequest book) {
+	public Book mapRequestToEntity(AddBookRequest book) {
 		if (Optional.ofNullable(book.getAuthor()).isPresent() && Optional.ofNullable(book.getTitle()).isPresent()) {
 			Book entity = new Book();
 			entity.setAuthor(book.getAuthor());
