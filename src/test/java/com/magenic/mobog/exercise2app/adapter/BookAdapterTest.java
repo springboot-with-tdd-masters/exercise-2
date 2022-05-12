@@ -8,6 +8,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import com.magenic.mobog.exercise2app.adapters.BookAdapter;
 import com.magenic.mobog.exercise2app.entities.Book;
 import com.magenic.mobog.exercise2app.exceptions.InvalidBookRequestException;
 import com.magenic.mobog.exercise2app.requests.AddBookRequest;

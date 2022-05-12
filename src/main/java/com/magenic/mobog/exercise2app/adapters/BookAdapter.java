@@ -1,4 +1,4 @@
-package com.magenic.mobog.exercise2app.adapter;
+package com.magenic.mobog.exercise2app.adapters;
 
 import java.util.Optional;
 
