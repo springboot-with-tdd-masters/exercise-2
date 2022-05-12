@@ -2,11 +2,14 @@ package com.magenic.mobog.exercise2app.adapters;
 
 import java.util.Optional;
 
+import org.springframework.stereotype.Service;
+
 import com.magenic.mobog.exercise2app.entities.Book;
 import com.magenic.mobog.exercise2app.exceptions.InvalidBookRequestException;
 import com.magenic.mobog.exercise2app.requests.AddBookRequest;
 import com.magenic.mobog.exercise2app.responses.GetBookResponse;
 
+@Service
 public class BookAdapter {
 
 	public GetBookResponse mapBookToResponse(Book book) {

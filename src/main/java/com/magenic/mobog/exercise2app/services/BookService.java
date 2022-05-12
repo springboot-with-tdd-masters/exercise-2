@@ -23,12 +23,12 @@ public class BookService {
 		this.repository = repository;
 	}
 
-	GetBookResponse save(AddBookRequest request) {
+	public GetBookResponse save(AddBookRequest request) {
 		return Optional.ofNullable(request).map(adapter::mapRequestToEntity).map(repository::save)
 				.map(adapter::mapBookToResponse).orElseThrow(InvalidBookRequestException::new);
 	}
 
-	List<GetBookResponse> findAll() {
+	public List<GetBookResponse> findAll() {
 		return repository.findAll().stream().map(adapter::mapBookToResponse).collect(Collectors.toList());
 	}
 }
