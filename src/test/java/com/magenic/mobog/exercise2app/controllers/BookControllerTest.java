@@ -5,7 +5,9 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
+import java.util.List;
 
+import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -98,5 +100,26 @@ public class BookControllerTest {
 				MockMvcRequestBuilders.get("/book")
 				.contentType(MediaType.APPLICATION_JSON_VALUE));
 		actual.andExpect(MockMvcResultMatchers.status().is2xxSuccessful());
+		actual.andExpect(MockMvcResultMatchers.jsonPath("$", Matchers.empty()));
+	}
+	@Test
+	@DisplayName("should return list of books if books are found")
+	void shouldReturn200WithBodyIfBooksAreFound() throws Exception {
+		GetBookResponse response1 = new GetBookResponse();
+		response1.setAuthor("Adam");
+		response1.setTitle("Apple is Bad");
+		response1.setId(1L);
+		GetBookResponse response2 = new GetBookResponse();
+		response2.setAuthor("Eve");
+		response2.setTitle("Just a Bite");
+		response2.setId(2L);
+		when(service.findAll()).thenReturn(List.of(response1, response2));
+		ResultActions actual = mvc.perform(
+				MockMvcRequestBuilders.get("/book")
+				.contentType(MediaType.APPLICATION_JSON_VALUE));
+		actual.andExpect(MockMvcResultMatchers.status().is2xxSuccessful());
+		actual.andExpect(MockMvcResultMatchers.jsonPath("$", Matchers.hasSize(2)));
+		actual.andExpect(MockMvcResultMatchers.jsonPath("$[0].author", is("Adam")));
+		actual.andExpect(MockMvcResultMatchers.jsonPath("$[1].author", is("Eve")));
 	}
 }

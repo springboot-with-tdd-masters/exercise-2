@@ -1,6 +1,9 @@
 package com.magenic.mobog.exercise2app.controllers;
 
+import java.util.List;
+
 import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,5 +26,9 @@ public class BookController {
 	@PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
 	GetBookResponse addBook(@RequestBody AddBookRequest newBook) {
 		return service.save(newBook);
+	}
+	@GetMapping
+	List<GetBookResponse> getAllBooks(){
+		return service.findAll();
 	}
 }
