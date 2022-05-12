@@ -9,8 +9,13 @@ public class BookRepositoryTest {
 
 	
 	@Test
-	@DisplayName("findAll should retrieve all books")
+	@DisplayName("findAll should retrieve all book")
 	void findAllShouldRetrieveAllBooks() {
+		
+	}
+	@Test
+	@DisplayName("save should save book entity")
+	void saveShouldSaveBookEntity() {
 		
 	}
 }
