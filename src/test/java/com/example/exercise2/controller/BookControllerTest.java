@@ -44,13 +44,13 @@ public class BookControllerTest {
 		expectedResponse.setTitle("Harry Potter and the Sorcerer's Stone");
 		expectedResponse.setAuthor("J.K. Rowling");
 
-		when(bookService.addBook(any()))
-         	.thenReturn(expectedResponse);
-		
 		Book bookRequest = new Book();
 		bookRequest.setTitle("Harry Potter and the Sorcerer's Stone");
 		bookRequest.setAuthor("J.K. Rowling");
 
+		when(bookService.addBook(bookRequest))
+         	.thenReturn(expectedResponse);
+		
 		this.mockMvc.perform(post("/books/add").content(
 	            	objectMapper.writeValueAsString(bookRequest)
 	    		).contentType(MediaType.APPLICATION_JSON))
@@ -59,7 +59,7 @@ public class BookControllerTest {
 			.andExpect(MockMvcResultMatchers.jsonPath("$.title").value("Harry Potter and the Sorcerer's Stone"))
 			.andExpect(MockMvcResultMatchers.jsonPath("$.author").value("J.K. Rowling"));
 
-	    verify(bookService).addBook(any());
+	    verify(bookService).addBook(bookRequest);
 	}
 	
 	@Test
@@ -89,25 +89,24 @@ public class BookControllerTest {
 			.andExpect(MockMvcResultMatchers.jsonPath("$[1].title").value("Harry Potter and the Chamber of Secrets"))
 			.andExpect(MockMvcResultMatchers.jsonPath("$[1].author").value("J.K. Rowling"));
 
-
 	    verify(bookService).getAllBooks();
 	}
 	
 	@Test
     @DisplayName("Given an error unknown error in save, response should give http status 500")
     public void unknownError() throws Exception {
-        when(bookService.addBook(any()))
-                .thenThrow(new RuntimeException());
-
-    	Book bookRequest = new Book();
+     	Book bookRequest = new Book();
 		bookRequest.setTitle("Harry Potter and the Sorcerer's Stone");
 		bookRequest.setAuthor("J.K. Rowling");
+
+		when(bookService.addBook(bookRequest))
+           .thenThrow(new RuntimeException());
 
 		this.mockMvc.perform(post("/books/add").content(
 	            	objectMapper.writeValueAsString(bookRequest)
 	    		).contentType(MediaType.APPLICATION_JSON))
         	.andExpect(status().is5xxServerError());
 
-        verify(bookService).addBook(any());
+        verify(bookService).addBook(bookRequest);
 	}
 }
