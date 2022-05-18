@@ -1,11 +1,6 @@
 package com.magenic.mobog.exercise2app.entities;
 
-import javax.annotation.Generated;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Book {
@@ -16,8 +11,8 @@ public class Book {
 
 	@Column
 	private String title;
-	@Column
-	private String author;
+	@ManyToOne
+	private Author author;
 
 	public Long getId() {
 		return id;
@@ -35,11 +30,11 @@ public class Book {
 		this.title = title;
 	}
 
-	public String getAuthor() {
-		return author;
+	public void setAuthor(Author author) {
+		this.author = author;
 	}
 
-	public void setAuthor(String author) {
-		this.author = author;
+	public Author getAuthor() {
+		return author;
 	}
 }

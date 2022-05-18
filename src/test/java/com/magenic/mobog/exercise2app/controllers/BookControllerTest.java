@@ -63,7 +63,7 @@ public class BookControllerTest {
 		// given
 		GetBookResponse response = new GetBookResponse();
 		response.setId(1L);
-		response.setAuthor("Baby Ruth");
+		response.setAuthorId(1L);
 		response.setTitle("Baseball Bat");
 		when(service.save(any(AddBookRequest.class))).thenReturn(response);
 		
@@ -76,7 +76,7 @@ public class BookControllerTest {
 		// then
 		actual.andExpect(MockMvcResultMatchers.status().is2xxSuccessful());
 		actual.andExpect(MockMvcResultMatchers.jsonPath("$.id", is(1)));
-		actual.andExpect(MockMvcResultMatchers.jsonPath("$.author", is("Baby Ruth")));
+		actual.andExpect(MockMvcResultMatchers.jsonPath("$.authorId", is(1)));
 		actual.andExpect(MockMvcResultMatchers.jsonPath("$.title", is("Baseball Bat")));
 	}
 	@Test
@@ -106,11 +106,11 @@ public class BookControllerTest {
 	@DisplayName("should return list of books if books are found")
 	void shouldReturn200WithBodyIfBooksAreFound() throws Exception {
 		GetBookResponse response1 = new GetBookResponse();
-		response1.setAuthor("Adam");
+		response1.setAuthorId(1L);
 		response1.setTitle("Apple is Bad");
 		response1.setId(1L);
 		GetBookResponse response2 = new GetBookResponse();
-		response2.setAuthor("Eve");
+		response2.setAuthorId(2L);
 		response2.setTitle("Just a Bite");
 		response2.setId(2L);
 		when(service.findAll()).thenReturn(List.of(response1, response2));
@@ -119,7 +119,7 @@ public class BookControllerTest {
 				.contentType(MediaType.APPLICATION_JSON_VALUE));
 		actual.andExpect(MockMvcResultMatchers.status().is2xxSuccessful());
 		actual.andExpect(MockMvcResultMatchers.jsonPath("$", Matchers.hasSize(2)));
-		actual.andExpect(MockMvcResultMatchers.jsonPath("$[0].author", is("Adam")));
-		actual.andExpect(MockMvcResultMatchers.jsonPath("$[1].author", is("Eve")));
+		actual.andExpect(MockMvcResultMatchers.jsonPath("$[0].authorId", is(1)));
+		actual.andExpect(MockMvcResultMatchers.jsonPath("$[1].authorId", is(2)));
 	}
 }

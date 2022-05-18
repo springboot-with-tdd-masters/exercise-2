@@ -3,6 +3,7 @@ package com.magenic.mobog.exercise2app.adapter;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import com.magenic.mobog.exercise2app.entities.Author;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -29,14 +30,13 @@ class BookAdapterTest {
 	void shouldMapBookRequestToBookEntity() {
 		// given
 		AddBookRequest request = new AddBookRequest();
-		request.setAuthor("Zoe Kravitz");
+		request.setAuthorId(1L);
 		request.setTitle("Catwoman");
 		
 		// when
 		Book actual = bookAdapter.mapRequestToEntity(request);
 		
 		// then
-		assertEquals("Zoe Kravitz", actual.getAuthor());
 		assertEquals("Catwoman", actual.getTitle());
 	}
 	@Test
@@ -44,7 +44,10 @@ class BookAdapterTest {
 	void shouldMapBookEntityToBookResponse() {
 		// given
 		Book entity = new Book();
-		entity.setAuthor("Paul Dano");
+		Author author = new Author();
+		author.setId(1L);
+		author.setName("Paul Dano");
+		entity.setAuthor(author);
 		entity.setTitle("There Will Be Riddler");
 		entity.setId(1L);
 		
@@ -53,7 +56,7 @@ class BookAdapterTest {
 		
 		// then
 		assertEquals(1L, actual.getId());
-		assertEquals("Paul Dano", actual.getAuthor());
+		assertEquals(1L, actual.getAuthorId());
 		assertEquals("There Will Be Riddler", actual.getTitle());
 	}
 	@Test

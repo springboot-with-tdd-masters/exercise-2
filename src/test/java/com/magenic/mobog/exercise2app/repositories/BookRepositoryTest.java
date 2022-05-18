@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.util.List;
 
+import com.magenic.mobog.exercise2app.entities.Author;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -48,9 +49,12 @@ public class BookRepositoryTest {
 	@Test
 	@DisplayName("save should save book entity")
 	void saveShouldSaveBookEntity() {
-		// given 
+		// given
+		Author newAuthor = new Author();
+		newAuthor.setId(1L);
+		newAuthor.setName("Robert Pattinson");
 		Book newBook = new Book();
-		newBook.setAuthor("Robert Pattinson");
+		newBook.setAuthor(newAuthor);
 		newBook.setTitle("Twilight: Redux");
 		// when
 		Book expected = bookRepository.save(newBook);
