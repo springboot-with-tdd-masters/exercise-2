@@ -4,16 +4,17 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import com.magenic.mobog.exercise2app.entities.Author;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import com.magenic.mobog.exercise2app.adapters.BookAdapter;
 import com.magenic.mobog.exercise2app.entities.Book;
-import com.magenic.mobog.exercise2app.exceptions.InvalidBookRequestException;
+import com.magenic.mobog.exercise2app.exceptions.InvalidRequestException;
 import com.magenic.mobog.exercise2app.requests.AddBookRequest;
-import com.magenic.mobog.exercise2app.responses.GetBookResponse;
+import com.magenic.mobog.exercise2app.responses.BookResponse;
+
+import java.time.LocalDateTime;
 
 class BookAdapterTest {
 	
@@ -30,7 +31,6 @@ class BookAdapterTest {
 	void shouldMapBookRequestToBookEntity() {
 		// given
 		AddBookRequest request = new AddBookRequest();
-		request.setAuthorId(1L);
 		request.setTitle("Catwoman");
 		
 		// when
@@ -50,9 +50,11 @@ class BookAdapterTest {
 		entity.setAuthor(author);
 		entity.setTitle("There Will Be Riddler");
 		entity.setId(1L);
+		entity.setCreatedDate(LocalDateTime.now());
+		entity.setLastModifiedDate(LocalDateTime.now());
 		
 		// when
-		GetBookResponse actual = bookAdapter.mapBookToResponse(entity);
+		BookResponse actual = bookAdapter.mapBookToResponse(entity);
 		
 		// then
 		assertEquals(1L, actual.getId());
@@ -64,7 +66,7 @@ class BookAdapterTest {
 	void shouldThrowExceptionOnWhitespaces() {
 		// given
 		AddBookRequest request = new AddBookRequest();
-		assertThrows(InvalidBookRequestException.class, () -> {
+		assertThrows(InvalidRequestException.class, () -> {
 			bookAdapter.mapRequestToEntity(request);
 		});
 	}

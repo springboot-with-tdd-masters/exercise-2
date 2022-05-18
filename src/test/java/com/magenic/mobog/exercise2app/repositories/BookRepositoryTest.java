@@ -14,6 +14,8 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 
 import com.magenic.mobog.exercise2app.entities.Book;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 
 @DataJpaTest
 public class BookRepositoryTest {
@@ -74,5 +76,43 @@ public class BookRepositoryTest {
 		
 		// then
 		assertEquals(0, actual.size());
+	}
+	@Test
+	@DisplayName("should return page with page 0 and size 2 ")
+	void shouldReturnPageOfBookEntityPage0(){
+		Author author = new Author();
+		author.setName("A. Ang");
+		testEntityMgr.persist(author);
+
+		Book book1 = new Book();
+		book1.setTitle("Book 1: Water");
+		Book book2 = new Book();
+		book1.setTitle("Book 2: Earth");
+		Book book3 = new Book();
+		book1.setTitle("Book 3: Fire");
+		author.setBooks(List.of(book1, book2, book3));
+		testEntityMgr.persist(author);
+
+		Page<Book> page = bookRepository.findAll(PageRequest.of(0, 2));
+		assertEquals(List.of(book1, book2), page.toList());
+	}
+	@Test
+	@DisplayName("should return page with page 1 and size 2 ")
+	void shouldReturnPageOfBookEntityPage1(){
+		Author author = new Author();
+		author.setName("A. Ang");
+		testEntityMgr.persist(author);
+
+		Book book1 = new Book();
+		book1.setTitle("Book 1: Water");
+		Book book2 = new Book();
+		book1.setTitle("Book 2: Earth");
+		Book book3 = new Book();
+		book1.setTitle("Book 3: Fire");
+		author.setBooks(List.of(book1, book2, book3));
+		testEntityMgr.persist(author);
+
+		Page<Book> page = bookRepository.findAll(PageRequest.of(1, 2));
+		assertEquals(List.of(book3), page.toList());
 	}
 }

@@ -1,10 +1,12 @@
 package com.magenic.mobog.exercise2app.entities;
 
+import com.magenic.mobog.exercise2app.entities.audit.BaseEntity;
+
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
-public class Author {
+public class Author extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
