@@ -1,6 +1,5 @@
 package com.magenic.mobog.exercise2app.entities.audit;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.domain.AuditorAware;

@@ -12,6 +12,7 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import javax.print.attribute.standard.Media;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/authors")
@@ -32,11 +33,23 @@ public class AuthorController {
 		return service.createAuthor(request);
 	}
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE, path ="/{authorId}/books")
-	PageResponse<BookResponse> getAllBooks(@PathVariable("authorId") Long authorId, @PageableDefault(value = 10, page = 0) Pageable p){
+	PageResponse<BookResponse> getAllBooks(@PathVariable("authorId") Long authorId, @RequestParam(required = false) String title, @PageableDefault(value = 10, page = 0) Pageable p){
+		if(Optional.of(title).isPresent()){
+			return null;
+		}
 		return service.findBookByAuthorWithPage(authorId, p);
 	}
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 	PageResponse<AuthorResponse> getAllAuthors(@PageableDefault(value = 10, page = 0) Pageable p){
 		return service.findAuthorsWithPage(p);
+	}
+	@GetMapping(path= "/{authorId}/books/{bookId}")
+	PageResponse<BookResponse> getBookById(@PathVariable("authorId") String authorId, @PathVariable("bookId") String bookId){
+		return null;
+	}
+
+	@GetMapping(path = "/{authorId}")
+	AuthorResponse getAuthorById(@PathVariable("authorId") String authorId){
+		return null;
 	}
 }
