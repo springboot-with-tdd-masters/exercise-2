@@ -9,9 +9,9 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.magenic.mobog</groupId>
-    <artifactId>exercise2-app</artifactId>
+    <artifactId>exercise3-app</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>exercise2-app</name>
+    <name>exercise3-app</name>
     <description>Demo project for Spring Boot</description>
     <properties>
         <java.version>11</java.version>
