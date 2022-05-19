@@ -39,7 +39,7 @@ public class AuthorControllerTest {
 	private MockMvc mvc;
 	
 	@Autowired
-	private final AuthorController controller;
+	private AuthorController controller;
 	@Autowired 
 	private ObjectMapper mapper;
 	
